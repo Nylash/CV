@@ -1,5 +1,24 @@
-const tags = document.querySelectorAll('.tag');
+const SkillSystem = (() => {
+   /* =========================================================
+   VARIABLES GLOBALES
+========================================================= */
+
+const tags = document.querySelectorAll(".main-content .tag");
 const seenSkills = new Set();
+
+const mobileQuery = window.matchMedia("(max-width: 1024px)");
+
+const CATEGORY_ORDER = [
+    "Développement",
+    "Architectures & Pratiques",
+    "Outils",
+    "Gestion de projet"
+];
+
+
+/* =========================================================
+   #region INTERSECTION OBSERVER
+========================================================= */
 
 const observer = new IntersectionObserver(handleIntersect, {
     threshold: 0.3
@@ -10,20 +29,26 @@ tags.forEach(tag => observer.observe(tag));
 function handleIntersect(entries) {
     entries.forEach(entry => {
 
-        document.querySelectorAll('.tag')[0].dataset
         if (!entry.isIntersecting) return;
 
         const skill = entry.target.textContent.trim();
         const category = entry.target.dataset.category;
 
         if (!skill || !category) return;
-
         if (seenSkills.has(skill)) return;
 
         seenSkills.add(skill);
-        animateTagClone(entry.target, skill, category)
+
+        animateTagClone(entry.target, skill, category);
     });
 }
+
+// #endregion
+
+
+/* =========================================================
+   #region SKILL PANEL (DESKTOP)
+========================================================= */
 
 function addSkillToPanel(skill, category) {
 
@@ -33,25 +58,19 @@ function addSkillToPanel(skill, category) {
 
     if (!categoryBlock) return;
 
-    const span = document.createElement('span');
-    span.className = 'tag';
+    const span = document.createElement("span");
+    span.className = "tag";
     span.textContent = skill;
 
     categoryBlock.appendChild(span);
 }
 
-/*
-Create mobile skills section
-*/
+// #endregion
 
-const CATEGORY_ORDER = [
-    "Développement",
-    "Architectures & Pratiques",
-    "Outils",
-    "Gestion de projet"
-];
 
-const mobileQuery = window.matchMedia("(max-width: 1024px)");
+/* =========================================================
+   #region MOBILE SKILLS SECTION
+========================================================= */
 
 function buildMobileSkillsSection() {
 
@@ -74,7 +93,6 @@ function buildMobileSkillsSection() {
         skillsByCategory[category].add(skill);
     });
 
-    // Création section
     const section = document.createElement("section");
     section.id = "mobile-skills";
 
@@ -86,6 +104,7 @@ function buildMobileSkillsSection() {
     card.className = "card";
 
     CATEGORY_ORDER.forEach(category => {
+
         const skills = skillsByCategory[category];
         if (!skills) return;
 
@@ -136,12 +155,16 @@ handleResponsive(mobileQuery);
 // Listen resize
 mobileQuery.addEventListener("change", handleResponsive);
 
-/*
-Tag animation
-*/
+// #endregion
+
+
+/* =========================================================
+   #region TAG ANIMATION (GSAP)
+========================================================= */
 
 function animateTagClone(originalTag, skill, category) {
 
+    // Mobile → ajout instantané (pas d’animation)
     if (window.innerWidth <= 1024) {
         addSkillToPanel(skill, category);
         return;
@@ -153,20 +176,20 @@ function animateTagClone(originalTag, skill, category) {
 
     if (!categoryBlock) return;
 
-    // 1️⃣ On crée le vrai tag FINAL immédiatement
+    /* ---- 1. Création du vrai tag final (invisible) ---- */
+
     const finalTag = document.createElement("span");
     finalTag.className = "tag";
     finalTag.textContent = skill;
 
     categoryBlock.appendChild(finalTag);
 
-    // 2️⃣ On mesure sa vraie position
     const endRect = finalTag.getBoundingClientRect();
 
-    // 3️⃣ On le rend invisible (mais il reste dans le layout)
     finalTag.style.opacity = "0";
 
-    // 4️⃣ On crée le clone animé
+    /* ---- 2. Création du clone animé ---- */
+
     const animatedClone = originalTag.cloneNode(true);
     document.body.appendChild(animatedClone);
 
@@ -178,14 +201,14 @@ function animateTagClone(originalTag, skill, category) {
         top: startRect.top,
         margin: 0,
         zIndex: 9999,
-        whiteSpace: "nowrap"
+        whiteSpace: "nowrap" // évite les retours à la ligne pendant le vol
     });
 
-    // 5️⃣ Animation vers SA vraie place
+    /* ---- 3. Animation vers la position réelle ---- */
+
     gsap.to(animatedClone, {
         left: endRect.left,
         top: endRect.top,
-        opacity: 0.85,
         duration: 0.65,
         ease: "power3.inOut",
         onComplete: () => {
@@ -194,3 +217,7 @@ function animateTagClone(originalTag, skill, category) {
         }
     });
 }
+
+// #endregion
+
+})();
