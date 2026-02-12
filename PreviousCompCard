@@ -1,0 +1,49 @@
+        <!-- SKILLS COLUMN -->
+        <aside class="side-column">
+            <h2 class="section-title">Compétences</h2>
+            <div class="card">
+                <h3>Développement</h3>
+                <ul>
+                    <li>C#</li>
+                    <li>.NET (en progression)</li>
+                    <li>Unity</li>
+                    <li>Architecture modulaire</li>
+                    <li>LINQ (usage ponctuel)</li>
+                    <li>Coroutines (gestion asynchrone)</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <h3>Architecture & pratiques</h3>
+                <ul>
+                    <li>Organisation des responsabilités</li>
+                    <li>Classes abstraites</li>
+                    <li>Séparation logique / données</li>
+                    <li>Architecture orientée événements</li>
+                    <li>Approche data-driven</li>
+                    <li>Refactoring & lisibilité</li>
+                    <li>Gestionnaires centralisés</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <h3>Outils</h3>
+                <ul>
+                    <li>Git</li>
+                    <li>SVN</li>
+                    <li>Jira</li>
+                    <li>Unity</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <h3>Produit & gestion</h3>
+                <ul>
+                    <li>Méthodologie agile</li>
+                    <li>Planification & estimations</li>
+                    <li>Coordination interdisciplinaire</li>
+                    <li>Playtests & Démonstration publiques</li>
+                </ul>
+            </div>
+
+        </aside>
