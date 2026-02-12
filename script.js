@@ -1,68 +1,41 @@
 const tags = document.querySelectorAll('.tag');
-const panel = document.getElementById('skill-panel');
-const panelContent = document.getElementById('skill-panel-content');
-const layout = document.querySelector('.page-layout');
-
 const seenSkills = new Set();
-const activeSkills = new Set();
 
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-
-        const skill = entry.target.dataset.skill;
-
-        if (!skill) return;
-
-        // Si le tag est visible
-        if (entry.isIntersecting) {
-
-            // On marque qu'il a été vu
-            seenSkills.add(skill);
-
-            // Si il était dans le panel → on l’enlève
-            if (activeSkills.has(skill)) {
-                activeSkills.delete(skill);
-            }
-
-        } else {
-
-            // Il sort de l'écran
-            // Mais seulement si il a déjà été vu
-            if (seenSkills.has(skill)) {
-                activeSkills.add(skill);
-            }
-        }
-
-    });
-
-    updatePanel();
-
-}, {
-    threshold: 0.2
+const observer = new IntersectionObserver(handleIntersect, {
+    threshold: 0.3
 });
 
 tags.forEach(tag => observer.observe(tag));
 
-function updatePanel() {
+function handleIntersect(entries) {
+    entries.forEach(entry => {
 
-    panelContent.innerHTML = '';
+document.querySelectorAll('.tag')[0].dataset
+        if (!entry.isIntersecting) return;
 
-    panel.style.opacity = activeSkills.size ? 1 : 0;
-    if (activeSkills.size === 0) {
-        panel.style.display = 'none';
-        layout.classList.add('panel-hidden');
-        return;
-    }
-    else {
-        layout.classList.remove('panel-hidden');
-    }
+        const skill = entry.target.textContent.trim();
+        const category = entry.target.dataset.category;
 
-    panel.style.display = 'block';
+        if (!skill || !category) return;
 
-    activeSkills.forEach(skill => {
-        const span = document.createElement('span');
-        span.className = 'tag';
-        span.textContent = skill;
-        panelContent.appendChild(span);
+        if (seenSkills.has(skill)) return;
+
+        seenSkills.add(skill);
+        addSkillToPanel(skill, category);
     });
+}
+
+function addSkillToPanel(skill, category) {
+
+    const categoryBlock = document.querySelector(
+        `.skill-category[data-category="${category}"] .skill-list`
+    );
+
+    if (!categoryBlock) return;
+
+    const span = document.createElement('span');
+    span.className = 'tag';
+    span.textContent = skill;
+
+    categoryBlock.appendChild(span);
 }
