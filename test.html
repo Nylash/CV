@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Benjamin Peltier – Game Designer & Programmeur</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    :root {
+      --bg: #0b0c10;
+      --bg-alt: #11131a;
+      --accent: #ffb400;
+      --text: #f5f5f5;
+      --muted: #b0b3c0;
+      --card: #181b24;
+      --border: #262a36;
+      --font-main: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-main);
+      background: radial-gradient(circle at top, #1b2135 0, #05060a 55%);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .page {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 32px 20px 64px;
+      display: grid;
+      grid-template-columns: minmax(0, 2fr) minmax(0, 1.2fr);
+      gap: 32px;
+    }
+
+    @media (max-width: 900px) {
+      .page {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    header {
+      grid-column: 1 / -1;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 20px 24px;
+      border-radius: 18px;
+      background: linear-gradient(135deg, #181b24 0, #10121a 40%, #181b24 100%);
+      border: 1px solid #262a36;
+      box-shadow: 0 18px 45px rgba(0, 0, 0, 0.55);
+    }
+
+    .identity {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .name {
+      font-size: 2.1rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+    }
+
+    .role {
+      font-size: 1.05rem;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--accent);
+    }
+
+    .tagline {
+      font-size: 0.98rem;
+      color: var(--muted);
+      max-width: 520px;
+    }
+
+    .contact {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      font-size: 0.9rem;
+      text-align: right;
+    }
+
+    @media (max-width: 600px) {
+      header {
+        flex-direction: column;
+      }
+      .contact {
+        text-align: left;
+      }
+    }
+
+    .section {
+      background: var(--card);
+      border-radius: 18px;
+      padding: 20px 22px;
+      border: 1px solid var(--border);
+      box-shadow: 0 14px 30px rgba(0, 0, 0, 0.45);
+    }
+
+    .section + .section {
+      margin-top: 18px;
+    }
+
+    .section-title {
+      font-size: 0.95rem;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--muted);
+      margin-bottom: 10px;
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 6px;
+    }
+
+    .pill {
+      font-size: 0.82rem;
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: #141722;
+      color: var(--muted);
+      white-space: nowrap;
+    }
+
+    .experience-item {
+      margin-top: 14px;
+      padding-top: 10px;
+      border-top: 1px solid #222633;
+    }
+
+    .experience-item:first-of-type {
+      border-top: none;
+      padding-top: 0;
+      margin-top: 4px;
+    }
+
+    .exp-header {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: baseline;
+      margin-bottom: 2px;
+    }
+
+    .exp-title {
+      font-weight: 600;
+      font-size: 0.98rem;
+    }
+
+    .exp-meta {
+      font-size: 0.82rem;
+      color: var(--muted);
+      text-align: right;
+      white-space: nowrap;
+    }
+
+    .exp-company {
+      font-size: 0.9rem;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+
+    .exp-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin: 4px 0 6px;
+    }
+
+    .exp-tag {
+      font-size: 0.78rem;
+      padding: 2px 8px;
+      border-radius: 999px;
+      background: #11131a;
+      border: 1px solid #262a36;
+      color: var(--muted);
+    }
+
+    ul {
+      list-style: none;
+      margin-top: 4px;
+    }
+
+    li {
+      position: relative;
+      padding-left: 14px;
+      font-size: 0.9rem;
+      color: #d7d9e4;
+      margin-bottom: 3px;
+    }
+
+    li::before {
+      content: "•";
+      position: absolute;
+      left: 0;
+      top: 0;
+      color: var(--accent);
+      font-size: 0.9rem;
+    }
+
+    .edu-item {
+      margin-top: 10px;
+    }
+
+    .edu-title {
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+
+    .edu-meta {
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+
+    .code-block {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      background: #10121a;
+      border-radius: 10px;
+      padding: 10px 12px;
+      border: 1px solid #262a36;
+      color: var(--muted);
+      margin-top: 8px;
+      white-space: pre-wrap;
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header>
+      <div class="identity">
+        <div class="role">Game designer & programmeur</div>
+        <div class="name">Benjamin Peltier</div>
+        <p class="tagline">
+          Game designer et développeur avec double profil technique et créatif : conception de systèmes,
+          prototypage rapide, équilibrage et pilotage de production sur Unity et Unreal Engine.
+        </p>
+      </div>
+      <div class="contact">
+        <span>Metz / Grand Est, France</span>
+        <span><a href="mailto:benjamin.peltier.pro@gmail.com">benjamin.peltier.pro@gmail.com</a></span>
+        <span><a href="https://benjaminpeltier.com" target="_blank" rel="noreferrer">benjaminpeltier.com</a></span>
+        <span>Français (natif) · Anglais (courant)</span>
+      </div>
+    </header>
+
+    <!-- Colonne gauche : expérience -->
+    <section class="section">
+      <h2 class="section-title">Expérience professionnelle</h2>
+
+      <article class="experience-item">
+        <div class="exp-header">
+          <div class="exp-title">Game Designer & Programmeur – Indépendant</div>
+          <div class="exp-meta">2024 – Aujourd’hui · Remote</div>
+        </div>
+        <div class="exp-company">Projets personnels et collaborations</div>
+        <div class="exp-tags">
+          <span class="exp-tag">Unity</span>
+          <span class="exp-tag">Unreal Engine 5</span>
+          <span class="exp-tag">Prototypage</span>
+          <span class="exp-tag">4X casual</span>
+        </div>
+        <ul>
+          <li>Conception et développement d’un jeu casual 4X puzzle, du prototype aux premières boucles complètes.</li>
+          <li>Réalisation de fan-concepts et de systèmes de jeu complets (économie, progression, UX de gameplay).</li>
+          <li>Prototypage sous Unity et UE5 pour explorer des mécaniques et boucles de jeu variées.</li>
+        </ul>
+      </article>
+
+      <article class="experience-item">
+        <div class="exp-header">
+          <div class="exp-title">Game Designer & Project Manager</div>
+          <div class="exp-meta">2021 – 2023 · Metz · Acreos</div>
+        </div>
+        <div class="exp-company">Simulateurs de machines industrielles</div>
+        <div class="exp-tags">
+          <span class="exp-tag">Game design</span>
+          <span class="exp-tag">Level design</span>
+          <span class="exp-tag">Gestion de projet</span>
+          <span class="exp-tag">Unity</span>
+        </div>
+        <ul>
+          <li>Conception, équilibrage et documentation de simulateurs de machines industrielles (formations et évaluations).</li>
+          <li>Level design, intégration de contenu et suivi de production avec une équipe pluridisciplinaire.</li>
+          <li>Gestion de sprints, priorisation des tâches et coordination avec les clients et parties prenantes.</li>
+          <li>Organisation et animation de playtests, démonstrations publiques et salons professionnels.</li>
+        </ul>
+      </article>
+
+      <article class="experience-item">
+        <div class="exp-header">
+          <div class="exp-title">Game Designer & Programmeur – Indépendant</div>
+          <div class="exp-meta">2019 – 2020</div>
+        </div>
+        <div class="exp-company">Projets commerciaux et prototypes</div>
+        <div class="exp-tags">
+          <span class="exp-tag">Unity</span>
+          <span class="exp-tag">UE4</span>
+          <span class="exp-tag">Party-game</span>
+        </div>
+        <ul>
+          <li>Développement de plusieurs prototypes de jeux sous Unity et Unreal Engine 4.</li>
+          <li>Sortie de deux party-games : <strong>Spacehook</strong> et <strong>Stapla</strong> (conception, programmation, équilibrage).</li>
+        </ul>
+      </article>
+
+      <article class="experience-item">
+        <div class="exp-header">
+          <div class="exp-title">QA Tester</div>
+          <div class="exp-meta">2018 · Paris · Spiders-Games</div>
+        </div>
+        <div class="exp-company">Projet : GreedFall</div>
+        <div class="exp-tags">
+          <span class="exp-tag">QA</span>
+          <span class="exp-tag">Debug</span>
+          <span class="exp-tag">Mantis</span>
+        </div>
+        <ul>
+          <li>Tests fonctionnels et de régression sur le jeu <strong>GreedFall</strong>.</li>
+          <li>Suivi et gestion des tickets dans la base de données Mantis.</li>
+          <li>Debug dans le moteur propriétaire et suivi de l’implémentation des features et quêtes.</li>
+        </ul>
+      </article>
+    </section>
+
+    <!-- Colonne droite : compétences, formation, extra -->
+    <section class="section">
+      <h2 class="section-title">Compétences</h2>
+
+      <h3 style="font-size:0.95rem;margin-top:4px;">Game design</h3>
+      <ul>
+        <li>Conception de systèmes, mécaniques et boucles de gameplay.</li>
+        <li>Prototypage rapide, itération et équilibrage.</li>
+        <li>Level design, pacing, onboarding et feedbacks joueurs.</li>
+      </ul>
+
+      <h3 style="font-size:0.95rem;margin-top:10px;">Développement</h3>
+      <div class="pill-row">
+        <span class="pill">Unity</span>
+        <span class="pill">C#</span>
+        <span class="pill">Unreal Engine</span>
+        <span class="pill">Blueprints</span>
+        <span class="pill">OOP</span>
+      </div>
+
+      <h3 style="font-size:0.95rem;margin-top:10px;">Outils & workflow</h3>
+      <div class="pill-row">
+        <span class="pill">Git</span>
+        <span class="pill">Jira</span>
+        <span class="pill">Confluence</span>
+        <span class="pill">Photoshop</span>
+        <span class="pill">InDesign</span>
+      </div>
+
+      <h3 style="font-size:0.95rem;margin-top:10px;">Langues</h3>
+      <ul>
+        <li>Français : natif</li>
+        <li>Anglais : courant (écrit & oral)</li>
+      </ul>
+    </section>
+
+    <section class="section">
+      <h2 class="section-title">Formation</h2>
+
+      <div class="edu-item">
+        <div class="edu-title">Bachelor en Game Design</div>
+        <div class="edu-meta">Université Paris 13</div>
+      </div>
+
+      <div class="edu-item">
+        <div class="edu-title">DUT Informatique</div>
+        <div class="edu-meta">Université de Lorraine</div>
+      </div>
+
+      <div class="edu-item">
+        <div class="edu-title">Classe préparatoire ingénieur</div>
+        <div class="edu-meta">Polytech Nancy</div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2 class="section-title">Bonus technique</h2>
+      <p style="font-size:0.9rem;color:#d7d9e4;">
+        Exemple de snippet qui reflète ton côté dev / gameplay (modifiable selon ce que tu fais vraiment) :
+      </p>
+      <div class="code-block">
+public class ComboSystem : MonoBehaviour
+{
+    public int Combo { get; private set; }
+    public float ComboTimer = 3f;
+
+    float _timeLeft;
+
+    void Update()
+    {
+        if (Combo &gt; 0)
+        {
+            _timeLeft -= Time.deltaTime;
+            if (_timeLeft &lt;= 0f)
+                ResetCombo();
+        }
+    }
+
+    public void OnSuccessfulAction()
+    {
+        Combo++;
+        _timeLeft = ComboTimer;
+        // TODO: feedback visuel / sonore + scaling des rewards
+    }
+
+    void ResetCombo()
+    {
+        Combo = 0;
+    }
+}
+      </div>
+    </section>
+  </main>
+</body>
+</html>
