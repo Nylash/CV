@@ -166,20 +166,14 @@ p {
     color: var(--text-muted);
 }
 
-
-/* ========================================
-   EDUCATION
-======================================== */
-
-.education-item {
+.card-item-condensed {
     margin-bottom: 1.5rem;
 }
 
-.education-item > .period {
+.card-item-condensed > .period {
     display: block;
     margin-bottom: 0.5rem;
 }
-
 
 /* ========================================
    SKILL PANEL
