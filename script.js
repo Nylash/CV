@@ -10,7 +10,7 @@ tags.forEach(tag => observer.observe(tag));
 function handleIntersect(entries) {
     entries.forEach(entry => {
 
-document.querySelectorAll('.tag')[0].dataset
+        document.querySelectorAll('.tag')[0].dataset
         if (!entry.isIntersecting) return;
 
         const skill = entry.target.textContent.trim();
@@ -21,7 +21,7 @@ document.querySelectorAll('.tag')[0].dataset
         if (seenSkills.has(skill)) return;
 
         seenSkills.add(skill);
-        addSkillToPanel(skill, category);
+        animateTagClone(entry.target, skill, category)
     });
 }
 
@@ -40,7 +40,9 @@ function addSkillToPanel(skill, category) {
     categoryBlock.appendChild(span);
 }
 
-// Create mobile skills section
+/*
+Create mobile skills section
+*/
 
 const CATEGORY_ORDER = [
     "Développement",
@@ -133,3 +135,62 @@ handleResponsive(mobileQuery);
 
 // Listen resize
 mobileQuery.addEventListener("change", handleResponsive);
+
+/*
+Tag animation
+*/
+
+function animateTagClone(originalTag, skill, category) {
+
+    if (window.innerWidth <= 1024) {
+        addSkillToPanel(skill, category);
+        return;
+    }
+
+    const categoryBlock = document.querySelector(
+        `.skill-category[data-category="${category}"] .skill-list`
+    );
+
+    if (!categoryBlock) return;
+
+    // 1️⃣ On crée le vrai tag FINAL immédiatement
+    const finalTag = document.createElement("span");
+    finalTag.className = "tag";
+    finalTag.textContent = skill;
+
+    categoryBlock.appendChild(finalTag);
+
+    // 2️⃣ On mesure sa vraie position
+    const endRect = finalTag.getBoundingClientRect();
+
+    // 3️⃣ On le rend invisible (mais il reste dans le layout)
+    finalTag.style.opacity = "0";
+
+    // 4️⃣ On crée le clone animé
+    const animatedClone = originalTag.cloneNode(true);
+    document.body.appendChild(animatedClone);
+
+    const startRect = originalTag.getBoundingClientRect();
+
+    gsap.set(animatedClone, {
+        position: "fixed",
+        left: startRect.left,
+        top: startRect.top,
+        margin: 0,
+        zIndex: 9999,
+        whiteSpace: "nowrap"
+    });
+
+    // 5️⃣ Animation vers SA vraie place
+    gsap.to(animatedClone, {
+        left: endRect.left,
+        top: endRect.top,
+        opacity: 0.85,
+        duration: 0.65,
+        ease: "power3.inOut",
+        onComplete: () => {
+            animatedClone.remove();
+            finalTag.style.opacity = "1";
+        }
+    });
+}
