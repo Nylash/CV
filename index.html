@@ -12,7 +12,15 @@
 
     <!-- HERO -->
     <section class="card hero-card">
-        <div class="hero-content">
+    <div class="hero-grid">
+
+        <!-- Colonne 1 : Avatar -->
+        <div class="hero-avatar">
+            <img src="PhotoCV.png" alt="Photo de Benjamin Peltier" class="avatar-img">
+        </div>
+
+        <!-- Colonne 2 : Texte principal -->
+        <div class="hero-main">
             <h1>Benjamin Peltier</h1>
             <h2>Software Developer - Background in Game Design</h2>
 
@@ -25,19 +33,25 @@
                 que managérial. Capacité à livrer du code clair, maintenable
                 et adapté aux exigences produit.
             </p>
-
-            <div class="hero-infos">
-                <span>Metz / Grand Est, France</span>
-            </div>
         </div>
-    </section>
+
+        <!-- Colonne 3 : Infos -->
+        <div class="hero-side">
+            <span class="hero-meta">Metz / Grand Est, France</span>
+            <span class="hero-meta">Disponible pour stage .NET</span>
+            <span class="hero-meta">Permis B + Véhicule Personnel</span>
+        </div>
+
+    </div>
+</section>
+
 
     <!-- MAIN GRID -->
     <section class="layout-grid">
 
         <!-- EXPERIENCE COLUMN -->
         <div class="main-column">
-
+            <h2 class="section-title">Expérience</h2>
             <div class="card">
                 <h3>Indie Developer</h3>
                 <span class="period">2019–2020 · 2024–présent</span>
@@ -56,6 +70,8 @@
                     <span class="tag">ScriptableObjects</span>
                     <span class="tag">Events</span>
                     <span class="tag">Git</span>
+                    <span class="tag">Coroutines</span>
+                    <span class="tag">Architecture modulaire</span>
                 </div>
             </div>
 
@@ -75,6 +91,15 @@
                     directement dans Unity, notamment sur la structuration
                     des données et l’intégration technique.
                 </p>
+
+                <div class="tags">
+                    <span class="tag">C#</span>
+                    <span class="tag">Unity</span>
+                    <span class="tag">ScriptableObjects</span>
+                    <span class="tag">Git</span>
+                    <span class="tag">Agile</span>
+                    <span class="tag">Jira</span>
+                </div>
             </div>
 
             <div class="card">
@@ -82,38 +107,50 @@
                 <span class="period">6 mois · Validation Licence</span>
 
                 <p>
-                    Test exploratoire, validation de builds, envoi à l’éditeur.
-                    Rédaction de tickets détaillés (Mantis) avec reproduction,
+                    Tests exploratoires, validation de builds, envoi à l’éditeur.
+                    Rédaction de tickets détaillés avec reproduction,
                     priorisation et assignation.
                 </p>
 
                 <p>
-                    Analyse des commits (SVN) pour identifier les impacts
+                    Analyse des commits pour identifier les impacts
                     et orienter les campagnes de test.
                 </p>
+
+                <div class="tags">
+                    <span class="tag">Mantis</span>
+                    <span class="tag">SVN</span>
+                    <span class="tag">Silk Engine</span>
+                </div>
             </div>
 
         </div>
 
         <!-- SKILLS COLUMN -->
         <aside class="side-column">
-
+            <h2 class="section-title">Compétences</h2>
             <div class="card">
                 <h3>Développement</h3>
                 <ul>
                     <li>C#</li>
-                    <li>Programmation orientée objet</li>
+                    <li>.NET (en progression)</li>
+                    <li>Unity</li>
+                    <li>Architecture modulaire</li>
                     <li>LINQ (usage ponctuel)</li>
+                    <li>Coroutines (gestion asynchrone)</li>
                 </ul>
             </div>
 
             <div class="card">
                 <h3>Architecture & pratiques</h3>
                 <ul>
-                    <li>Responsabilité unique</li>
-                    <li>Structuration par managers</li>
-                    <li>Events</li>
-                    <li>ScriptableObjects</li>
+                    <li>Organisation des responsabilités</li>
+                    <li>Classes abstraites</li>
+                    <li>Séparation logique / données</li>
+                    <li>Architecture orientée événements</li>
+                    <li>Approche data-driven</li>
+                    <li>Refactoring & lisibilité</li>
+                    <li>Gestionnaires centralisés</li>
                 </ul>
             </div>
 
@@ -122,8 +159,8 @@
                 <ul>
                     <li>Git</li>
                     <li>SVN</li>
+                    <li>Jira</li>
                     <li>Unity</li>
-                    <li>Unreal (Blueprint)</li>
                 </ul>
             </div>
 
@@ -132,7 +169,8 @@
                 <ul>
                     <li>Méthodologie agile</li>
                     <li>Planification & estimations</li>
-                    <li>Coordination équipe</li>
+                    <li>Coordination interdisciplinaire</li>
+                    <li>Playtests & Démonstration publiques</li>
                 </ul>
             </div>
 
@@ -141,34 +179,53 @@
     </section>
 
     <!-- EDUCATION -->
+    <h2 class="section-title">Formation</h2>
     <section class="card education-card">
-        <h3>Formations</h3>
-
         <div class="education-item">
-            <h4>Licence Game Design</h4>
+            <h3>Licence Game Design</h3>
             <span>Université Paris 13 · 2017–2018</span>
             <p>
                 Formation orientée conception de systèmes interactifs
                 et programmation appliquée au jeu vidéo.
             </p>
+            <div class="tags">
+                <span class="tag">Game concept & System design</span>
+                <span class="tag">Level design</span>
+                <span class="tag">Rational design</span>
+                <span class="tag">C#</span>
+            </div>
         </div>
 
         <div class="education-item">
-            <h4>DUT Informatique</h4>
+            <h3>DUT Informatique</h3>
             <span>Université de Lorraine · 2015–2017</span>
             <p>
                 Formation généraliste en informatique avec bases solides
                 en développement, algorithmique et bases de données.
             </p>
+            <div class="tags">
+                <span class="tag">C++</span>
+                <span class="tag">Java</span>
+                <span class="tag">SQL</span>
+                <span class="tag">Web</span>
+                <span class="tag">Algorithmique</span>
+                <span class="tag">Gestion de projet</span>
+            </div>
         </div>
 
         <div class="education-item">
-            <h4>Classe préparatoire école d’ingénieur</h4>
+            <h3>Classe préparatoire école d’ingénieur</h3>
             <span>Polytech Nancy · 2013–2015</span>
             <p>
                 Formation scientifique axée sur rigueur analytique
                 et résolution de problèmes.
             </p>
+            <div class="tags">
+                <span class="tag">Mathématiques</span>
+                <span class="tag">C.A.O</span>
+                <span class="tag">Électronique</span>
+                <span class="tag">Thermodynamique</span>
+            </div>
         </div>
 
     </section>
