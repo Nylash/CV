@@ -55,6 +55,13 @@ p {
         margin-top: 2rem;
 }
 
+footer{
+    text-align: center;
+    color: var(--text-muted);
+    font-size: .9rem;
+    margin-bottom: 30px;
+}
+
 /* ========================================
    LAYOUT
 ======================================== */
