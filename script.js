@@ -15,13 +15,14 @@ const CATEGORY_ORDER = [
     "Gestion de projet"
 ];
 
+let animationQueue = Promise.resolve();
 
 /* =========================================================
    #region INTERSECTION OBSERVER
 ========================================================= */
 
 const observer = new IntersectionObserver(handleIntersect, {
-    threshold: 0.3
+    threshold: 0.6
 });
 
 tags.forEach(tag => observer.observe(tag));
@@ -39,7 +40,9 @@ function handleIntersect(entries) {
 
         seenSkills.add(skill);
 
-        animateTagClone(entry.target, skill, category);
+        animationQueue = animationQueue.then(() =>
+            animateTagClone(entry.target, skill, category)
+        );
     });
 }
 
@@ -158,7 +161,7 @@ mobileQuery.addEventListener("change", handleResponsive);
    #region TAG ANIMATION (GSAP)
 ========================================================= */
 
-function animateTagClone(originalTag, skill, category) {
+async function animateTagClone(originalTag, skill, category) {
 
     // Mobile → ajout instantané (pas d’animation)
     if (window.innerWidth <= 1024) {
@@ -174,44 +177,54 @@ function animateTagClone(originalTag, skill, category) {
 
     /* ---- 1. Création du vrai tag final (invisible) ---- */
 
+    const startRect = originalTag.getBoundingClientRect();
     const finalTag = document.createElement("span");
     finalTag.className = "tag";
     finalTag.textContent = skill;
+    finalTag.style.visibility = "hidden";
 
     categoryBlock.appendChild(finalTag);
 
     const endRect = finalTag.getBoundingClientRect();
-
-    finalTag.style.opacity = "0";
 
     /* ---- 2. Création du clone animé ---- */
 
     const animatedClone = originalTag.cloneNode(true);
     document.body.appendChild(animatedClone);
 
-    const startRect = originalTag.getBoundingClientRect();
-
     gsap.set(animatedClone, {
         position: "fixed",
-        left: startRect.left,
-        top: startRect.top,
+        left: endRect.left,
+        top: endRect.top,
         margin: 0,
         zIndex: 9999,
         whiteSpace: "nowrap" // évite les retours à la ligne pendant le vol
     });
 
+    // Calcul du delta
+    const deltaX = startRect.left - endRect.left;
+    const deltaY = startRect.top - endRect.top;
+
+    // On inverse visuellement la position
+    gsap.set(animatedClone, {
+        x: deltaX,
+        y: deltaY
+    });
+
     /* ---- 3. Animation vers la position réelle ---- */
 
-    gsap.to(animatedClone, {
-        left: endRect.left,
-        top: endRect.top,
-        duration: 0.65,
-        ease: "power3.inOut",
-        onComplete: () => {
-            animatedClone.remove();
-            finalTag.style.opacity = "1";
-        }
+    await new Promise(resolve => {
+        gsap.to(animatedClone, {
+            x: 0,
+            y: 0,
+            duration: 0.5,
+            ease: "power3.inOut",
+            onComplete: resolve
+        });
     });
+    animatedClone.remove();
+    finalTag.style.visibility = "visible";
+
 }
 
 // #endregion
