@@ -93,11 +93,17 @@ function buildMobileSkillsSection() {
         skillsByCategory[category].add(skill);
     });
 
-    const education = document.getElementById("education");
+    const container = document.createElement("section");
+    container.id = "mobile-skills";
+
     const title = document.createElement("h2");
     title.className = "section-title";
     title.textContent = "Compétences";
-    education.parentNode.insertBefore(title, education);
+
+    container.appendChild(title);
+
+    const education = document.getElementById("education");
+    education.parentNode.insertBefore(container, education);
 
     CATEGORY_ORDER.forEach(category => {
 
@@ -122,7 +128,7 @@ function buildMobileSkillsSection() {
 
         section.appendChild(h3);
         section.appendChild(tagContainer);
-        education.parentNode.insertBefore(section, education);
+        container.appendChild(section);
     });
 }
 

@@ -166,6 +166,42 @@ p {
     color: var(--text-muted);
 }
 
+.hero-actions {
+    display: flex;
+    gap: 0.8rem;
+}
+
+.hero-button {
+    width: 42px;
+    height: 42px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+    border: 1px solid var(--border-subtle);
+
+    color: var(--accent);
+    background: transparent;
+
+    text-decoration: none;
+
+    transition: all 0.25s ease;
+}
+
+.hero-button svg {
+    width: 18px;
+    height: 18px;
+}
+
+.hero-button:hover {
+    background: var(--accent);
+    color: var(--bg-main);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(122, 159, 222, 0.3);
+}
+
 .card-item-condensed {
     margin-bottom: 1.5rem;
 }
@@ -225,6 +261,10 @@ p {
 
     .hero-side {
         align-items: center;
+    }
+
+    .alt-section-title {
+        margin-top: 0;
     }
 }
 
