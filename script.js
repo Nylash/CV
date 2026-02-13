@@ -93,23 +93,19 @@ function buildMobileSkillsSection() {
         skillsByCategory[category].add(skill);
     });
 
-    const section = document.createElement("section");
-    section.id = "mobile-skills";
-
+    const education = document.getElementById("education");
     const title = document.createElement("h2");
     title.className = "section-title";
     title.textContent = "Compétences";
-
-    const card = document.createElement("div");
-    card.className = "card";
+    education.parentNode.insertBefore(title, education);
 
     CATEGORY_ORDER.forEach(category => {
 
         const skills = skillsByCategory[category];
         if (!skills) return;
 
-        const item = document.createElement("div");
-        item.className = "card-item-condensed";
+        const section = document.createElement("section");
+        section.className = "card";
 
         const h3 = document.createElement("h3");
         h3.textContent = category;
@@ -124,16 +120,10 @@ function buildMobileSkillsSection() {
             tagContainer.appendChild(span);
         });
 
-        item.appendChild(h3);
-        item.appendChild(tagContainer);
-        card.appendChild(item);
+        section.appendChild(h3);
+        section.appendChild(tagContainer);
+        education.parentNode.insertBefore(section, education);
     });
-
-    section.appendChild(title);
-    section.appendChild(card);
-
-    const education = document.getElementById("education");
-    education.parentNode.insertBefore(section, education);
 }
 
 function removeMobileSkillsSection() {
